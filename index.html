@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT PRO ACADEMY — Повний курс програмування та дизайну для дітей</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="img/Logo.svg">
+    <style>
+        :root {
+            --bg-black: #000000;
+            --bg-graphite: #333431;
+            --bg-graphite-light: #222421;
+            --neon-green: #90F631;
+            --neon-green-glow: rgba(144, 246, 49, 0.3);
+            --neon-green-strong: rgba(144, 246, 49, 0.7);
+            --text-white: #FFFFFF;
+            --text-muted: #a0a0a0;
+            --border-graphite: rgba(255, 255, 255, 0.12);
+            --radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg-black); color: var(--text-white); overflow-x: hidden; line-height: 1.6; padding-bottom: 60px; }
+
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+
+        /* Фоновий ефект */
+        .glow-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
+        .glow-sphere { position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.15; }
+        .sphere-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--neon-green); }
+        .sphere-2 { bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: var(--bg-graphite); }
+
+        /* Шапка */
+        header {
+            position: fixed; top: 0; width: 100%; padding: 14px 0; background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(12px); z-index: 100; border-bottom: 1px solid var(--border-graphite);
+        }
+        .nav-wrapper { display: flex; justify-content: space-between; align-items: center; }
+
+        /* Оновлений логотип з іконками */
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            font-weight: 800;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--bg-graphite-light);
+            border: 1px solid var(--neon-green);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-green);
+            font-size: 1.1rem;
+            box-shadow: 0 0 12px var(--neon-green-glow);
+            transition: var(--transition);
+        }
+
+        .logo-box:hover .logo-icon {
+            transform: rotate(-8deg) scale(1.05);
+            box-shadow: 0 0 20px var(--neon-green-strong);
+            background: var(--neon-green);
+            color: var(--bg-black);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+
+        .logo-text .it {
+            color: var(--text-white);
+            font-size: 1.15rem;
+            letter-spacing: 1px;
+        }
+
+        .logo-text .pro {
+            color: var(--neon-green);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px var(--neon-green-glow);
+        }
+
+        nav ul { display: flex; list-style: none; gap: 24px; }
+        nav a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: var(--transition); }
+        nav a:hover { color: var(--neon-green); }
+
+        .btn-neon {
+            background: var(--neon-green); color: var(--bg-black); padding: 12px 26px; border-radius: 30px;
+            border: none; font-weight: 800; cursor: pointer; box-shadow: 0 0 20px var(--neon-green-glow);
+            transition: var(--transition); text-decoration: none; display: inline-block; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px;
+        }
+        .btn-neon:hover { transform: translateY(-2px); box-shadow: 0 0 30px var(--neon-green-strong); }
+
+        /* HERO SECTION */
+        .hero { padding: 120px 0 80px; }
+        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px;
+            background: rgba(144, 246, 49, 0.1); border: 1px solid var(--neon-green); border-radius: 20px;
+            color: var(--neon-green); font-size: 0.8rem; font-weight: 700; margin-bottom: 20px; text-transform: uppercase;
+        }
+        .hero h1 { font-size: clamp(2.2rem, 4vw, 3.5rem); line-height: 1.15; margin-bottom: 20px; font-weight: 800; }
+        .hero h1 span { color: var(--neon-green); text-shadow: 0 0 15px var(--neon-green-glow); }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; }
+
+        /* Метрики */
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 40px; padding: 25px; background: var(--bg-graphite); border-radius: var(--radius); border: 1px solid var(--border-graphite); }
+        .stat-item h3 { font-size: 2rem; color: var(--neon-green); font-weight: 800; }
+        .stat-item p { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
+
+        /* СЕКЦІЯ "ТРАНСФОРМАЦІЯ" */
+        .section-padding { padding: 90px 0; }
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); margin-bottom: 12px; }
+        .section-title p { color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+
+        .transform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .transform-card { padding: 35px; border-radius: var(--radius); background: var(--bg-graphite); border: 1px solid var(--border-graphite); }
+        .transform-card.before { border-left: 4px solid #a6aea8; }
+        .transform-card.after { border-left: 4px solid var(--neon-green); box-shadow: 0 0 20px var(--neon-green-glow); }
+        .transform-card h3 { font-size: 1.4rem; margin-bottom: 20px; }
+        .transform-list { list-style: none; }
+        .transform-list li { margin-bottom: 12px; display: flex; gap: 10px; font-size: 0.95rem; color: var(--text-muted); }
+
+        /* ПРОГРАМА НАВЧАННЯ (ТАБИ) */
+        .tabs-nav { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
+        .tab-btn { background: var(--bg-graphite); border: 1px solid var(--border-graphite); color: var(--text-white); padding: 12px 24px; border-radius: 30px; cursor: pointer; font-weight: 700; transition: var(--transition); }
+        .tab-btn.active, .tab-btn:hover { background: var(--neon-green); color: var(--bg-black); border-color: var(--neon-green); }
+
+        .program-content { display: none; }
+        .program-content.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .module-card { background: var(--bg-graphite); border: 1px solid var(--border-graphite); border-radius: var(--radius); padding: 25px; }
+        .module-card .num { color: var(--neon-green); font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; }
+
+        /* ПОРІВНЯЛЬНА ТАБЛИЦЯ */
+        .compare-table { width: 100%; border-collapse: collapse; margin-top: 30px; background: var(--bg-graphite); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border-graphite); }
+        .compare-table th, .compare-table td { padding: 18px 24px; text-align: left; border-bottom: 1px solid var(--border-graphite); font-size: 0.95rem; }
+        .compare-table th { background: var(--bg-black); color: var(--neon-green); font-size: 1rem; }
+        .compare-table tr:hover { background: rgba(255,255,255,0.02); }
+        .check-yes { color: var(--neon-green); font-weight: bold; }
+
+        /* ТАРИФИ */
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; }
+        .price-card { background: var(--bg-graphite); border: 1px solid var(--border-graphite); border-radius: var(--radius); padding: 35px; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+        .price-card.popular { border-color: var(--neon-green); box-shadow: 0 0 25px var(--neon-green-glow); }
+        .popular-badge { position: absolute; top: -12px; right: 25px; background: var(--neon-green); color: var(--bg-black); font-size: 0.75rem; font-weight: 800; padding: 4px 12px; border-radius: 12px; text-transform: uppercase; }
+        .price-val { font-size: 2.2rem; font-weight: 800; color: var(--neon-green); margin: 15px 0; }
+
+        /* FAQ */
+        .faq-grid { max-width: 900px; margin: 0 auto; }
+        .faq-item { background: var(--bg-graphite); border: 1px solid var(--border-graphite); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+        .faq-question { padding: 20px 25px; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-answer { padding: 0 25px 20px; color: var(--text-muted); font-size: 0.95rem; display: none; }
+        .faq-item.active .faq-answer { display: block; }
+        .faq-item.active .faq-question i { transform: rotate(180deg); color: var(--neon-green); }
+
+        /* ФОРМА ЗАЯВКИ */
+        .cta-box { background: var(--bg-graphite); border: 1px solid var(--neon-green); border-radius: 24px; padding: 50px; box-shadow: 0 0 40px var(--neon-green-glow); max-width: 800px; margin: 0 auto; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-size: 0.85rem; font-weight: 600; }
+        .form-group input, .form-group select { width: 100%; padding: 14px; background: var(--bg-black); border: 1px solid var(--border-graphite); border-radius: 10px; color: #fff; outline: none; }
+        .form-group input:focus, .form-group select:focus { border-color: var(--neon-green); }
+
+        /* ПЛАВАЮЧА МАКЕТНА ПАНЕЛЬ ТАЙМЕРА */
+        .sticky-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(22, 24, 28, 0.95);
+            border-top: 1px solid var(--neon-green);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 999;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+        }
+        .sticky-text {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-white);
+        }
+        .sticky-text span {
+            color: var(--neon-green);
+        }
+        .green_color {
+            color: var(--neon-green);
+        }
+        /* Адаптивність */
+        @media (max-width: 992px) {
+            .hero-grid, .transform-grid, .pricing-grid, .form-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            nav { display: none; }
+            .sticky-bar { flex-direction: column; gap: 8px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow-bg">
+        <div class="glow-sphere sphere-1"></div>
+        <div class="glow-sphere sphere-2"></div>
+    </div>
+
+    <!-- НАВІГАЦІЯ -->
+    <header>
+        <div class="container nav-wrapper">
+            <a href="#" class="logo-box">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="it">IT PRO <i class="fa-solid fa-bolt" style="font-size: 0.75rem; color: var(--neon-green);"></i></span>
+                    <span class="pro">ACADEMY</span>
+                </div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#transform">Результати</a></li>
+                    <li><a href="#program">Програма</a></li>
+                    <li><a href="#compare">Чому ми</a></li>
+                    <li><a href="#prices">Тарифи</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </nav>
+            <a href="#contact" class="btn-neon">Пробний урок</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div>
+                <div class="hero-badge"><i class="fa-solid fa-shield-halved"></i> 100% Практика | Гарантія результату</div>
+                <h1>Готуємо <span>PRO-розробників</span> <br>змалечку</h1>
+                <p>Індивідуальне та міні-групове онлайн-навчання для дітей 10–16 років. <br>Створення власних ігор, веб-сайтів та месенджерів у сучасній IT-атмосфері.</p>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="#contact" class="btn-neon" style="padding: 16px 36px; font-size: 0.95rem;">Записатися на пробний урок</a>
+                    <a href="#program" class="btn-neon" style="background: transparent; color: #fff; border: 1px solid var(--border-graphite); box-shadow: none;">Дивитися програму</a>
+                </div>
+            </div>
+            
+            <!-- Форма швидкого запису в Hero -->
+            <div style="background: var(--bg-graphite); padding: 30px; border-radius: var(--radius); border: 1px solid var(--border-graphite);">
+                <h3 style="margin-bottom: 10px;">Забронювати пробне заняття</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">Залишилось 4 місця на цьому тижні</p>
+                <form id="heroForm">
+                    <div style="margin-bottom: 15px;">
+                        <input type="text" id="heroName" placeholder="Ваше ім'я" style="width:100%; padding:12px; background:#000; border:1px solid var(--border-graphite); border-radius:8px; color:#fff;" required>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <input type="tel" id="heroPhone" placeholder="Телефон / Telegram" style="width:100%; padding:12px; background:#000; border:1px solid var(--border-graphite); border-radius:8px; color:#fff;" required>
+                    </div>
+                    <button type="submit" class="btn-neon" style="width: 100%;">Забронювати</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="container stats-grid">
+            <div class="stat-item"><h3>98%</h3><p>Доходять до фінального проєкту</p></div>
+            <div class="stat-item"><h3>до 6</h3><p>Дітей у міні-групах</p></div>
+            <div class="stat-item"><h3>16+</h3><p>Готових робіт у портфоліо</p></div>
+            <div class="stat-item"><h3>100%</h3><p>Практичних занять в Zoom</p></div>
+        </div>
+    </section>
+
+    <!-- СЕКЦІЯ ТРАНСФОРМАЦІЇ -->
+    <section class="section-padding" id="transform" style="background: var(--bg-black);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Що зміниться в житті дитини?</h2>
+                <p>Ми не просто вчимо писати код — ми змінюємо мислення та підхід до технологій.</p>
+            </div>
+            <div class="transform-grid">
+                <div class="transform-card before">
+                    <h3 style="color: #a6aea8;"><i class="fa-solid fa-xmark"></i> Без IT PRO:</h3>
+                    <ul class="transform-list">
+                        <li><i class="fa-solid fa-minus" style="color:#a6aea8"></i> Проведення 5+ годин на день у TikTok та іграх</li>
+                        <li><i class="fa-solid fa-minus" style="color:#a6aea8"></i> Споживацьке ставлення до комп'ютера</li>
+                        <li><i class="fa-solid fa-minus" style="color:#a6aea8"></i> Відсутність розуміння, чим займатися в майбутньому</li>
+                        <li><i class="fa-solid fa-minus" style="color:#a6aea8"></i> Втрата мотивації через складну шкільну теорію</li>
+                    </ul>
+                </div>
+                <div class="transform-card after">
+                    <h3 style="color: var(--neon-green);"><i class="fa-solid fa-check"></i> З IT PRO:</h3>
+                    <ul class="transform-list">
+                        <li><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Створення власних ігор, сайтів та месенджерів</li>
+                        <li><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Розуміння алгоритмів, математики та алгоритмічного мислення</li>
+                        <li><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Перше сформоване портфоліо цифрових продуктів</li>
+                        <li><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Дисципліна та вміння презентувати свої рішення</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПОКРОКОВА ПРОГРАМА НАВЧАННЯ -->
+    <section class="section-padding" id="program">
+        <div class="container">
+            <div class="section-title">
+                <h2>Напрями Навчання в <span class="green_color">IT PRO</span></h2>
+                <p>Натисніть на напрям, щоб відкрити програму</p>
+            </div>
+
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab('pythonTab', this)">Python Basics (12–16 років)</button>
+                <button class="tab-btn" onclick="switchTab('pythonAdvancedTab', this)">Python Advanced (12–16 років)</button>
+                <button class="tab-btn" onclick="switchTab('webTab', this)">Розробка веб-сайтів (11–15 років)</button>
+                <button class="tab-btn" onclick="switchTab('frontendTab', this)">Frontend (12–16 років)</button>
+                <button class="tab-btn" onclick="switchTab('designBasicsTab', this)">Графічний дизайн Basics (10–16 років)</button>
+                <button class="tab-btn" onclick="switchTab('designAdvancedTab', this)">Графічний дизайн Advanced (10–16 років)</button>
+            </div>
+
+            <!-- Таб Python Basics-->
+            <div class="program-content active" id="pythonTab">
+                <div class="module-card">
+                    <div class="num">Блок 1</div>
+                    <h4>Основи Python та робота з даними</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Вивчення фундаментальних принципів мови Python. Дитина опанує типи даних, перетворення типів, форматовані рядки та
+                    базові операції з текстовою інформацією. Наприкінці блоку створюється перший практичний проєкт із бліц-презентацією.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 2</div>
+                    <h4>Керуючі конструкції та алгоритмічна логіка</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Опанування алгоритмічного мислення. Вивчення логічного типу даних, умовних операторів if/else та вкладених умов. Робота
+                    з циклами for та while, функцією range(), а також керуючими командами break і continue.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 3</div>
+                    <h4>Функціональне програмування та симуляції</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Створення власних функцій із параметрами та оператором return. Розуміння різниці між локальними й глобальними змінними.
+                    Використання системних модулів random та time для генерації випадкових подій і часових затримок.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 4</div>
+                    <h4>Візуальна графіка з модулем Turtle</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Знайомство з графічною бібліотекою Turtle. Створення малюнків кодом, побудова складних геометричних фігур та поєднання
+                    масивів (списків) із візуальними елементами.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 5</div>
+                    <h4>Розробка перших ігрових проєктів</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Практичне створення логічних та текстових ігор. Написання повноцінного коду для ігор "Хрестики-Нулики" та "Guess the
+                    word" з підготовкою до першого відкритого уроку.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 6</div>
+                    <h4>Вступ до ООП</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Перехід на професійний рівень розробки. Вивчення баз ООП: створення класів, конструкторів, методів та реалізація
+                    механізму спадкування. Розробка проєкту "Перегони" та робота з подіями користувача.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 7</div>
+                    <h4>Інтерактивні додатки та графічні редактори</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Застосування ООП на практиці для створення складніших продуктів. Розробка гри "Впіймай яблуко", графічного редактора
+                    "Малювалка" та візуального квесту.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 8</div>
+                    <h4>Основи ігрового рушія Pygame</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Знайомство з бібліотекою Pygame для розробки 2D-ігор. Налаштування ігрового вікна, обробка клавіатури й миші, створення
+                    анімації та побудова головного меню гри.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 9</div>
+                    <h4>Створення культових аркад</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Покрокова розробка класичних ігор: створення раннера Chrome Dinosaur та аркади Arkanoid. Написання ігрової логіки,
+                    фізики зіткнень, підрахунку балів та рівнів складності.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 10</div>
+                    <h4>Фінальний проєкт</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Самостійне створення власної гри. Проходження всіх етапів розробки: від ідеї та кодингу
+                    до тестування, відлагодження помилок і публічної презентації.</p>
+                </div>
+
+            </div>
+
+            <!-- Таб Python Advanced-->
+            <div class="program-content" id="pythonAdvancedTab">
+                <div class="module-card">
+                    <div class="num">Блок 1</div>
+                    <h4>Поглиблені структури даних та захист від помилок</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Перехід від базових задач до професійної архітектури! Дитина опановує словники, множини та складні вкладені структури, а
+                    також вчиться захищати код від збоїв за допомогою обробки винятків (try/except), щоб її програми працювали стабільно.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 2</div>
+                    <h4>Мережева інженерія та запуск власних серверів</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Виходимо за межі стандартного офлайн-програмування! Дитина розбирається у клієнт-серверній архітектурі, вивчає мости
+                    передачі інформації та створює свій перший сервер для консольного онлайн-чату.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 3</div>
+                    <h4>Сучасні віконні інтерфейси</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Жодних сірих та нудних консолей! Дитина вчиться розробляти стильний софт із кнопками, текстовими полями, картинками та
+                    віджетами на фреймворку CustomTkinter, створюючи графічний інтерфейс преміум-рівня.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 4</div>
+                    <h4>Власний графічний месенджер (аналог Telegram)</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Поєднання мереж та графічних інтерфейсів на практиці! Дитина розробляє повноцінний віконний додаток онлайн-чату, через
+                    який можна реалістично обмінюватися повідомленнями з друзями.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 5</div>
+                    <h4>Професійний Git</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Навчаємося працювати за стандартами IT-індустрії! Дитина опановує систему контролю версій Git, а також вчиться
+                    компілювати свій Python-код у готові запускні файли .exe та архівувати їх у .zip для швидкої передачі іншим
+                    користувачам.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 6</div>
+                    <h4>Багатокористувацькі онлайн-ігри</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Створення ігор для компанії! Дитина вивчає обмін даними у форматі JSON, комбінує його зі словниками та розробляє
+                    мережеву онлайн-гру "Ping-Pong" з можливістю грати разом через мережу.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 7</div>
+                    <h4>Голосове керування та інтерактивний звук</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Занурення у світ мультимедіа та розпізнавання! Дитина підключає мікрофон до Python, вчиться обробляти звукові потоки,
+                    створює віртуальне "Фортепіано" та розробляє гру "Flappy Bird", де персонаж реагує на голос.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 8</div>
+                    <h4>Випускний проєкт</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Головний предмет гордості в портфоліо підлітка! Дитина самостійно розробляє складний багатокористувацький проєкт,
+                    проходить усі етапи тестування та презентує свій працюючий продукт.</p>
+                </div>
+            </div>
+
+            <!-- Таб Web -->
+            <div class="program-content" id="webTab">
+                <div class="module-card">
+                    <div class="num">Блок 1</div>
+                    <h4>UX/UI прототипування та дизайн у Figma</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Перетворюємо ідеї на візуальні шедеври! Дитина вчиться проектувати макети сайтів у професійній програмі Figma, опановує
+                    підбір кольорових палітр, шрифтових пар та створює сучасний дизайн, який зачіпає з першого погляду.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 2</div>
+                    <h4>Анатомія вебу та семантична HTML5-розмітка</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Занурення у фундамент розробки сайтів! Дитина вивчає будову веб-сторінок, семантичні теги, вчиться правильно
+                    структурувати текстові блоки, формувати списки, вставляти зображення та будувати кнопкові елементи.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 3</div>
+                    <h4>Стилізація та візуальна магія з CSS3</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Робимо сайти яскравими та стильно виразними! Дитина опановує каскадні таблиці стилів (CSS3), вчиться налаштовувати
+                    кольори, фонові зображення, неонові сяйва, працювати з відступами та формувати привабливий зовнішній вигляд елементів.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 4</div>
+                    <h4>Сучасна розкладка блоків: Flexbox та CSS Grid</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Верстка за стандартами провідних IT-студій! Дитина вчиться будувати складні та гнучкі сітки сторінок за допомогою
+                    технологій Flexbox та Grid, розміщуючи картки, меню та контент максимально рівно й гармонійно.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 5</div>
+                    <h4>Повна адаптивність під смартфони та планшети</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Сайт, який ідеально виглядає на будь-якому пристрої! Дитина опановує медіа-запити та робить сайти зручними для перегляду
+                    як з великих моніторів, так і з екранів айфонів чи планшетів.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 6</div>
+                    <h4>Неонові CSS-анімації та інтерактивні ефекти</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Оживляємо інтерфейс! Дитина вчиться додавати плавну анімацію кнопок, ефекти при наведенні курсору (hover-ефекти),
+                    трансформації елементів та робить взаємодію із сайтом захопливою для відвідувача.</p>
+                </div>  
+                <div class="module-card">
+                    <div class="num">Блок 7</div>
+                    <h4>Побудова багатосторінкового онлайн-проєкту</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Від окремих елементів до цілісного веб-ресурсу! Дитина об'єднує декілька сторінок (головна, про нас, галерея, контакти)
+                    зручною навігацією та будує логічну структуру власного багатосторінкового сайту.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 8</div>
+                    <h4>Публікація в мережу (Деплой на GitHub Pages) та запуск</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Справжній реліз в інтернеті! Дитина розміщує свій готовий сайт на публічному хостингу (GitHub Pages), отримує власний
+                    персональний домен та може миттєво поділитися посиланням на свою роботу з друзями та батьками.</p>
+                </div>
+
+            </div>
+
+            <!-- Таб Frontend -->
+            <div class="program-content" id="frontendTab">
+                <div class="module-card">
+                    <div class="num">Блок 1</div>
+                    <h4>Фундаментальний JavaScript та логіка розробника</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Перехід від звичайної верстки до справжнього програмування! Дитина опановує базову синтаксичну логіку JavaScript:
+                    змінні, типи даних, математичні операції, умови та цикли, які лежать в основі будь-якого сучасного веб-додатка.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 2</div>
+                    <h4>Динаміка та оживлення сторінок</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Робимо сайти інтерактивними! Дитина вчиться керувати елементами сторінки прямо з коду через DOM-дерево, обробляти кліки,
+                    введення з клавіатури, створювати спливаючі вікна, валідувати форми та реалізовувати яскраві сценарії взаємодії з
+                    користувачем.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 3</div>
+                    <h4>Об'єкти, масиви та складні структури даних</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Вчимося організовувати код як справжні Senior-розробники! Дитина опановує об'єктно-орієнтований підхід у JS, роботу з
+                    масивами, методами перебору даних та функціями зворотного виклику (callbacks), необхідними для побудови каталогу
+                    товарів.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 4</div>
+                    <h4>Асинхронний JavaScript, API та робота з серверами</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Підключаємо сайт до реального світу! Дитина вивчає асинхронні запити (fetch/Promises), обмін даними у форматі JSON та
+                    вчиться отримувати інформацію з зовнішніх серверів (курси валют, погода, каталоги продуктів).</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 5</div>
+                    <h4>Верстка на фреймворках та сучасний UI</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Прискорюємо розробку за допомогою професійних інструментів! Дитина опановує популярний фреймворк Bootstrap, вчиться
+                    миттєво збирати адаптивні блоки, готові компоненти, картки товарів та навігаційні меню.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 6</div>
+                    <h4>Професійний Git, GitHub та командний кодинг</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Опановуємо інструменти справжніх IT-команд! Дитина вчиться працювати із системою контролю версій Git, створювати гілки,
+                    вирішувати конфлікти коду та публікувати свої проєкти на платформі GitHub.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 7</div>
+                    <h4>Архітектура Інтернет-магазину та логіка кошика</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Створення складного комерційного продукту! Дитина розробляє функціонал для E-Commerce: динамічний вивід товарів з
+                    масиву, фільтрацію, пошук, додавання й видалення позицій із кошика та підрахунок загальної вартості замовлення.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 8</div>
+                    <h4>Фінальний проєкт</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Готовий комерційний кейс у портфоліо підлітка! Дитина самостійно завершує, тестує й публікує свій працюючий
+                    Інтернет-магазин та урочисто презентує його.</p>
+                </div>
+            </div>
+
+            <!-- Таб Design Basics -->
+            <div class="program-content" id="designBasicsTab">
+                <div class="module-card">
+                    <div class="num">Блок 1</div>
+                    <h4>Професійна обробка та ретуш фотографій</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Перший крок у світ цифрового мистецтва! Дитина вчиться працювати з графічними редакторами, опановує інструменти корекції
+                    кольору, ретушування облич, відновлення пошкоджених кадрів та створення вражаючих фотоколажів.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 2</div>
+                    <h4>Основи малювання, світлотінь та колір</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Розвиваємо художнє бачення! Дитина вивчає закони колористики, композиції, побудови перспективи та світлотіні. Навчаємося
+                    правильно поєднувати відтінки та створювати гармонійні візуальні образи з нуля.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 3</div>
+                    <h4>Векторна ілюстрація та графічні елементи</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Від простих форм до складних цифрових артів! Дитина опановує векторну графіку, вчиться створювати стікери, іконки,
+                    емблеми та малювати стильні цифрової ілюстрації для брендингу.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 4</div>
+                    <h4>Дизайн персонажів та концепт-арт</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Оживляємо фантазію! Навчаємося розробляти унікальних персонажів для ігор, коміксів чи анімацій, прораховуючи їхні
+                    емоції, силуети, кольорову палітру та деталі.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 5</div>
+                    <h4>Об'ємне 3D-моделювання та текстурування</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Виходимо у третій вимір! Дитина знайомиться з інструментами 3D-графіки, вчиться будувати 3D-моделі предметів,
+                    налаштовувати матеріали, текстури й освітлення для створення об'ємних сцен.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 6</div>
+                    <h4>Створення 3D-локацій та віртуальних світів</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Будуємо власні візуальні світи! Дитина створює деталізовані 3D-локації (ігрові кімнати, фантастичні пейзажі), налаштовує
+                    камери та рендерить красиві кадри для портфоліо.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 7</div>
+                    <h4>Верстка, типографіка та книжкова поліграфія</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Магія роботи з текстом та макетами! Дитина вивчає правила типографіки, шрифт-пари, сітки розкладки та створює власні
+                    плакати, рекламні постери, обкладинки для книг і журналів.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 8</div>
+                    <h4>Інфографіка та візуалізація даних</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Навчаємося подавати складну інформацію просто й красиво! Дитина вчиться розробляти інфографіку, карти, діаграми та
+                    презентації, які легко читаються та привертають увагу.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 9</div>
+                    <h4>Основи брендингу та створення айдентики</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Перетворюємо ідею на впізнаваний бренд! Дитина вчиться розробляти фірмовий стиль, розробляє логотипи, візитки, візуальне
+                    оформлення для мерчу та соціальних мереж.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 10</div>
+                    <h4>Анімація та 2D-рух</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Оживляємо статичну графіку! Дитина опановує принципи анімації, вчиться додавати плавну динаміку картинкам, створювати
+                    банери, GIF-анімації та коротрі ролики.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 11</div>
+                    <h4>Фінальний проєкт</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Головний предмет гордості в портфоліо! Дитина самостійно створює комплексний айдентика-проєкт - повне візуальне
+                    оформлення (від логотипу та 3D-сцени до постерів і афіш) та урочисто презентує його.</p>
+                </div>
+            </div>
+
+            <!-- Таб Designs Advanced -->
+            <div class="program-content" id="designAdvancedTab">
+                <div class="module-card">
+                    <div class="num">Блок 1</div>
+                    <h4>Стратегічний брендинг та створення фірмового стилю</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Перехід від простих малюнків до розробки комерційної айдентики для бізнесу! Дитина вчиться будувати метафору бренду,
+                    створювати впізнавані логотипи, підбирати фірмові шрифти та будувати гармонійні кольорові палітри для компаній.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 2</div>
+                    <h4>Розробка повноцінного брендбуку</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Створення професійного стандарту бренду! Навчаємося розробляти офіційне керівництво зі стилю (брендбук): правила
+                    використання логотипа, фірмові патерни, дизайн ділової документації, візиток та концептів візуального оформлення
+                    товарів.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 3</div>
+                    <h4>Фундаментальний UI/UX дизайн та архітектура додатків</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Опанування найзатребуванішої професії у дизайні! Дитина вивчає різницю між UX (логікою та зручністю) та UI (красою
+                    інтерфейсу), вчиться будувати сценарії користувача (User Flow) та проектувати сітку екранів для мобільних додатків і
+                    сайтів.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 4</div>
+                    <h4>Прототипування та дизайн мобільних інтерфейсів у Figma</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Створення дизайну додатків під iOS та Android! Дитина вчиться проектувати сучасні екрани смартфонів у Figma,
+                    використовувати UI-кіти, системи компонентів (Auto Layout, Variants) та створювати інтерфейси, якими зручно
+                    користуватися щодня.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 5</div>
+                    <h4>Інтерактивна анімація інтерфейсів та мікровзаємодії</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Оживляємо мобільні додатки та сайти! Дитина вчиться додавати анімацію кліків, плавного скролу, плаваючих меню та
+                    переходів між екранами, створюючи реалістичні інтерактивні прототипи, які можна протестувати прямо на телефоні.</p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 6</div>
+                    <h4>Створення ігрових інтерфейсів</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Занурення у сферу розробки комп'ютерних ігор! Навчаємося малювати яскраві ігрові меню, кнопки, смужки здоров'я (HUD),
+                    іконки артефактів, інвентар та ігрові карточки для комп'ютерних і мобільних ігор.
+                    </p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 7</div>
+                    <h4>Мокапи, 3D-візуалізація та presentation-дизайн</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Красива подача та упакування проєктів! Дитина вчиться презентувати свої роботи через професійні 3D-мокапи, розміщувати
+                    дизайн на реальних носіях (вивіски, упаковка, смартфони, мерч) та будувати переконливі візуальні презентації для
+                    замовників.
+                    </p>
+                </div>
+                <div class="module-card">
+                    <div class="num">Блок 8</div>
+                    <h4>Оформлення комерційного кейсу та публікація на Behance</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Головний крок до міжнародної кар'єри дизайнера! Дитина вчиться верстати довгі лонгріди-кейси, правильно презентувати хід
+                    своєї думки, оформлювати портфоліо та публікує свої готові проєкти на міжнародній платформі Behance для залучення перших
+                    клієнтів.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ЧОМУ IT PRO (ПОРІВНЯННЯ) -->
+    <section class="section-padding" id="compare" style="background: var(--bg-black);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Чому батьки обирають <span class="green_color">IT PRO?</span></h2>
+                <p>Порівняйте наш підхід із типовими масовими IT-школами</p>
+            </div>
+
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th>Критерій порівняння</th>
+                        <th>Звичайні школи</th>
+                        <th style="color: var(--neon-green);">Академія IT PRO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Розмір групи</strong></td>
+                        <td>12–20 дітей в одній групі</td>
+                        <td class="check-yes">Міні-групи до 6 осіб або 1-на-1</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Увага викладача</strong></td>
+                        <td>Викладач фізично не встигає відповісти усім</td>
+                        <td class="check-yes">Контроль та допомога кожній дитині 100% часу</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Формат результату</strong></td>
+                        <td>Абстрактні вправи та тестові завдання</td>
+                        <td class="check-yes">Готовий робочий проєкт (чат, сайт, дизайн)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Зворотний зв'язок батькам</strong></td>
+                        <td>Сухий сертифікат наприкінці року</td>
+                        <td class="check-yes">Презентації проектів + сертифікат</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Гнучкість графіка</strong></td>
+                        <td>Жорсткий розклад, пропущені уроки згорають</td>
+                        <td class="check-yes">Можливість переносу та відпрацювання занять</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ТАРИФИ -->
+    <section class="section-padding" id="prices">
+        <div class="container">
+            <div class="section-title">
+                <h2>Прозорі тарифи навчання</h2>
+                <p>Оберіть комфортний формат для вашої дитини</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Тариф 1 -->
+                <div class="price-card">
+                    <div>
+                        <h3>Легкий старт</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Заняття у міні-групах до 6 дітей</p>
+                        <div class="price-val">₴1500 <span style="font-size: 1rem; color: var(--text-muted); font-weight: normal;">/ місяць</span></div>
+                        <ul style="list-style: none; color: var(--text-muted); font-size: 0.9rem;">
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> 4 онлайн-уроків на місяць (по 90 хв)</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> 1 урок на тиждень</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Чат з викладачем у Telegram</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Зворотний зв'язок про успіхи дитини</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Можливість відпрацювання уроків</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Портфоліо зі своїми проектами</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Отримання сертифікату</li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="btn-neon" style="width: 100%; text-align: center; margin-top: 25px;">Обрати формат</a>
+                </div>
+
+                <!-- Тариф 2 (Популярний) -->
+                <div class="price-card popular">
+                    <span class="popular-badge">Найкращий вибір</span>
+                    <div>
+                        <h3>Впевнений Прогрес</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Заняття у міні-групах до 6 дітей</p>
+                        <div class="price-val">₴2800 <span style="font-size: 1rem; color: var(--text-muted); font-weight: normal;">/ місяць</span></div>
+                        <ul style="list-style: none; color: var(--text-muted); font-size: 0.9rem;">
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i>8 онлайн-уроків на місяць (по 90 хв)</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> 2 уроки на тиждень
+                            </li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Чат з викладачем у
+                                Telegram</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Зворотний зв'язок про
+                                успіхи дитини</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Можливість
+                                відпрацювання уроків</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Портфоліо зі своїми
+                                проектами</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Отримання сертифікату
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="btn-neon" style="width: 100%; text-align: center; margin-top: 25px;">Обрати преміум</a>
+                </div>
+
+                <!-- Тариф 3 -->
+                <div class="price-card">
+                    <div>
+                        <h3>Занурення в ІТ</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Заняття у міні-групах до 6 дітей</p>
+                        <div class="price-val">₴4200 <span style="font-size: 1rem; color: var(--text-muted); font-weight: normal;">/ за курс</span></div>
+                        <ul style="list-style: none; color: var(--text-muted); font-size: 0.9rem;">
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i>12 онлайн-уроків на
+                                місяць (по 90 хв)</li>
+                                <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> 3 уроки на тиждень
+                                </li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Чат з викладачем у
+                                Telegram</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Зворотний зв'язок про
+                                успіхи дитини</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Можливість
+                                відпрацювання уроків</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Портфоліо зі своїми
+                                проектами</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Отримання сертифікату
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="btn-neon" style="width: 100%; text-align: center; margin-top: 25px;">Забронювати курс</a>
+                </div>
+
+                <div class="price-card">
+                    <div>
+                        <h3>Легкий старт</h3>
+                        <p style="font-size: 0.85rem; color: var(--neon-green);">Індивідуальні заняття 1-на-1</p>
+                        <div class="price-val">₴2200 <span style="font-size: 1rem; color: var(--text-muted); font-weight: normal;">/ місяць</span></div>
+                        <ul style="list-style: none; color: var(--text-muted); font-size: 0.9rem;">
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> 4 онлайн-уроків на місяць (по 90 хв)</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> 1 урок на тиждень</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Чат з викладачем у Telegram</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Зворотний зв'язок про успіхи дитини</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Можливість відпрацювання уроків</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Портфоліо зі своїми проектами</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Отримання сертифікату</li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="btn-neon" style="width: 100%; text-align: center; margin-top: 25px;">Обрати формат</a>
+                </div>
+
+                
+                <!-- Тариф 2 (Популярний) -->
+                <div class="price-card popular">
+                    <span class="popular-badge">Найкращий вибір</span>
+                    <div>
+                        <h3>Впевнений Прогрес</h3>
+                        <p style="font-size: 0.85rem; color: var(--neon-green);">Індивідуальні заняття 1-на-1</p>
+                        <div class="price-val">₴3900 <span style="font-size: 1rem; color: var(--text-muted); font-weight: normal;">/
+                                місяць</span></div>
+                        <ul style="list-style: none; color: var(--text-muted); font-size: 0.9rem;">
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i>8
+                                онлайн-уроків на місяць (по 90 хв)</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> 2 уроки
+                                на тиждень
+                            </li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Чат з
+                                викладачем у
+                                Telegram</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Зворотний
+                                зв'язок про
+                                успіхи дитини</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i>
+                                Можливість
+                                відпрацювання уроків</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Портфоліо
+                                зі своїми
+                                проектами</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Отримання
+                                сертифікату
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="btn-neon" style="width: 100%; text-align: center; margin-top: 25px;">Обрати преміум</a>
+                </div>
+
+                <div class="price-card">
+                    <div>
+                        <h3>Занурення в ІТ</h3>
+                        <p style="font-size: 0.85rem; color: var(--neon-green);">Індивідуальні заняття 1-на-1</p>
+                        <div class="price-val">₴5800 <span style="font-size: 1rem; color: var(--text-muted); font-weight: normal;">/ за
+                                курс</span></div>
+                        <ul style="list-style: none; color: var(--text-muted); font-size: 0.9rem;">
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i>12
+                                онлайн-уроків на
+                                місяць (по 90 хв)</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> 3 уроки
+                                на тиждень
+                            </li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Чат з
+                                викладачем у
+                                Telegram</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Зворотний
+                                зв'язок про
+                                успіхи дитини</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i>
+                                Можливість
+                                відпрацювання уроків</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Портфоліо
+                                зі своїми
+                                проектами</li>
+                            <li style="margin-bottom: 10px;"><i class="fa-solid fa-check" style="color:var(--neon-green)"></i> Отримання
+                                сертифікату
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="btn-neon" style="width: 100%; text-align: center; margin-top: 25px;">Забронювати курс</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section-padding" id="faq" style="background: var(--bg-black);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Відповіді на поширені запитання</h2>
+                <p>Все, що вам потрібно знати перед стартом навчання</p>
+            </div>
+
+            <div class="faq-grid">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Чи впорається дитина, якщо не має жодного досвіду в кодингу? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Так! Наші методики розроблені для навчання з нуля. Ми пояснюємо складні концепції через метафори, ігри та приклади із реального життя.</div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Яке обладнання необхідне для занять? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Достатньо будь-якого ноутбука чи комп'ютера з операційною системою Windows або macOS, стабільного інтернету, ну і за можливістю навушників та мікрофона. Потужна відеокарта не потрібна.</div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Що відбувається, якщо дитина захворіє або пропускає урок? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Жодне заняття не згорає! <br>
+                    Якщо учень пропускає урок, викладач проведе окрему індивідуальну зустріч 1-на-1, де особисто надолужить із учнем весь пропущений
+                    матеріал. Дитина гарантовано залишиться в одному ритмі
+                    з групою та почуватиметься впевнено! Також викладач відповідає на всі запитання в особистому чаті Telegram.</div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Як проходить пробний урок? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Це 45-хвилинне інтерактивне заняття. 30 хвилин дитина створює свій перший міні-проєкт, після чого викладач показує батькам результат і надає детальний розбір здібностей дитини.</div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Скільки дітей навчається в одній групі? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Ми працюємо в комфортних мікро-групах до 6 осіб або індивідуально. Це дозволяє викладачу приділяти 100% уваги кожній
+                    дитині, перевіряти код у реальному часі та адаптувати швидкість під ритм кожного учня.</div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Скільки триває один урок і чи не втомлюється дитина? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Заняття триває 90 хвилин. Це ідеальний таймінг, щоб утримати фокус уваги, виконати практичне завдання та не
+                    перевантажити дитину після школи.</div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Що дитина матиме в результаті після проходження курсу? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Готове портфоліо цифрових продуктів (власні ігри, працездатні сайти, чати чи брендбуки), офіційний іменний сертифікат, навички та
+                    сформоване алгоритмічне мислення.</div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Чи видається сертифікат після закінчення навчання? <i
+                            class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Так! Після успішного захисту фінального проєкту учень отримує персональний офіційний сертифікат від IT PRO ACADEMY.</div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Як розпочати навчання? <i
+                            class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Потрапити до нас дуже просто - заповніть форму на сайті, і згодом з вами зв'яжеться менеджер.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ФІНАЛЬНА ФОРМА -->
+    <section class="section-padding" id="contact">
+        <div class="container">
+            <div class="cta-box">
+                <h2 style="text-align: center; margin-bottom: 10px;">Забронюйте пробний урок прямо зараз</h2>
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 30px;">Залиште заявку — ми підберемо зручний час для пробного заняття з викладачем.</p>
+
+                <form id="leadForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Ваше ім'я (батьків)</label>
+                            <input type="text" id="parentName" placeholder="Оксана Коваль" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Ваш номер телефону / Telegram</label>
+                            <input type="tel" id="parentPhone" placeholder="+380 (97) 000-00-00" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Вік дитини</label>
+                            <input type="number" id="childAge" placeholder="12" min="8" max="17" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Бажаний напрям</label>
+                            <select id="courseSelect">
+                                <option value="Python Basics">Python Basics (12–16 років)</option>
+                                <option value="Python Advanced">Python Advanced (12–16 років)</option>
+                                <option value="Розробка веб-сайтів">Розробка веб-сайтів (11–15 років)</option>
+                                <option value="Frontend">Frontend (12–16 років)</option>
+                                <option value="Графічний дизайн Basics">Графічний дизайн Basics (10–16 років)</option>
+                                <option value="Графічний дизайн Advanced">Графічний дизайн Advanced (10–16 років)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-neon" style="width: 100%; padding: 18px; margin-top: 20px; font-size: 1rem;">Записатися</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПЛАВАЮЧА МАКЕТНА ПАНЕЛЬ ТАЙМЕРА ДЛЯ МОБІЛЬНИХ -->
+    <div class="sticky-bar">
+        <div class="sticky-text">
+            🔥 Можливість забронювати пробне заняття закінчується через: <span id="timer">04:59</span>
+        </div>
+        <a href="#contact" class="btn-neon" style="padding: 10px 20px; font-size: 0.8rem;">Забронювати</a>
+    </div>
+
+    <footer style="border-top: 1px solid var(--border-graphite); padding: 30px 0; text-align: center; color: var(--text-muted); font-size: 0.85rem;">
+        <div class="container">
+            <p>© 2026 IT PRO ACADEMY. Усі права захищено. Авторське менторство з програмування для дітей.</p>
+        </div>
+    </footer>
+
+    <!-- СКРИПТИ -->
+    <script>
+        // Перемикання табів програми
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.program-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        // Перемикання FAQ
+        function toggleFaq(el) { el.classList.toggle('active'); }
+
+        // Telegram Bot Конфігурація
+        const BOT_TOKEN = '8771353638:AAGbQNOhLAarWiFlRgaRkIg7_FULb7lnlqE';
+        const CHAT_ID = '6537189067';
+
+        // Функція для відправки повідомлення в Telegram
+        function sendToTelegram(messageText, formElement) {
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: messageText,
+                    parse_mode: 'HTML'
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert(`Дякуємо! Заявка успішно прийнята. Менеджер зв'яжеться з вами найближчим часом.`);
+                    formElement.reset();
+                } else {
+                    alert("Сталася помилка при відправці. Спробуйте ще раз або напишіть нам напряму.");
+                }
+            })
+            .catch(error => {
+                alert("Помилка мережі. Перевірте з'єднання.");
+            });
+        }
+
+        // 1. Обробка Головної форми (Нижня секція)
+        document.getElementById('leadForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('parentName').value;
+            const phone = document.getElementById('parentPhone').value;
+            const age = document.getElementById('childAge').value;
+            const course = document.getElementById('courseSelect').value;
+
+            const message = `🚀 <b>НОВА ЗАЯВКА З САЙТУ!</b>\n\n` +
+                            `👤 <b>Батьки:</b> ${name}\n` +
+                            `📞 <b>Телефон:</b> ${phone}\n` +
+                            `🎂 <b>Вік дитини:</b> ${age} років\n` +
+                            `📚 <b>Курс:</b> ${course}`;
+
+            sendToTelegram(message, this);
+        });
+
+        // 2. Обробка Швидкої форми у банері (Hero Section)
+        document.getElementById('heroForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('heroName').value;
+            const phone = document.getElementById('heroPhone').value;
+
+            const message = `⚡ <b>ШВИДКА ЗАЯВКА (HERO-БАНЕР)!</b>\n\n` +
+                            `👤 <b>Ім'я:</b> ${name}\n` +
+                            `📞 <b>Телефон:</b> ${phone}`;
+
+            sendToTelegram(message, this);
+        });
+
+        // Відлік часу для зворотного таймера
+        let time = 300;
+        const timerEl = document.getElementById('timer');
+        setInterval(() => {
+            let minutes = Math.floor(time / 60);
+            let seconds = time % 60;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            if (timerEl) timerEl.innerHTML = `0${minutes}:${seconds}`;
+            if (time > 0) time--;
+        }, 1000);
+    </script>
+</body>
+</html>
